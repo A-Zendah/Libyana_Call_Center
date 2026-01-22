@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليل موظف مركز الإتصال</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #951B81;
+            --secondary-color: #E0E0E0;
+            --accent-color: #4CAF50;
+            /* Example accent for notifications/success */
+            --text-color: #333;
+            --light-bg: #f5f5f5;
+            --dark-bg: #333;
+            --border-color: #ddd;
+            --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--light-bg);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: var(--text-color);
+        }
+
+        /* Header */
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            box-shadow: var(--shadow);
+            z-index: 100;
+            /* Changed from space-between to center */
+            justify-content: center;
+            /* Center content horizontally */
+            position: relative;
+            /* Needed for absolute positioning of menu icon */
+        }
+
+        .header h1 {
+            font-size: 22px;
+            margin: 0;
+            /* Remove default margin */
+            /* Removed flex-grow: 1; */
+        }
+
+        /* Main Layout */
+        .main-layout {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            /* Slightly wider for better touch targets */
+            background-color: white;
+            border-left: 1px solid var(--border-color);
+            /* Border on the left for RTL */
+            height: 100%;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+            /* Subtle shadow */
+            padding: 15px 0;
+            /* Add vertical padding */
+            transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+            /* Added width transition */
+            z-index: 90;
+            /* Below header */
+        }
+
+        /* This class will be added via JS for auto-hide (desktop) */
+        .sidebar.collapsed {
+            width: 60px;
+            /* Collapsed width */
+            overflow: hidden;
+            /* Hide content that overflows */
+        }
+
+        /* Styling for the SVG icons within app-item when sidebar is collapsed */
+        .sidebar.collapsed .app-item {
+            flex-direction: column;
+            /* Stack icon and text vertically */
+            padding: 10px 5px;
+            /* Adjust padding for collapsed state */
+        }
+
+        .sidebar.collapsed .app-item .icon-svg {
+            margin: 0 auto 5px auto;
+            /* Center icon, add margin to bottom */
+        }
+
+        /* Hide text in collapsed state */
+        .sidebar.collapsed .app-item .app-label {
+            display: none;
+        }
+
+
+        /* This class will be added via JS for mobile */
+        .sidebar.hidden-mobile {
+            /* Renamed from 'hidden' to avoid conflict */
+            transform: translateX(100%);
+            /* Hides sidebar off-screen to the right on small screens */
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+        }
+
+        .app-list {
+            list-style: none;
+            /* Remove default list bullets */
+            padding: 0 15px;
+            /* Adjust padding for list items */
+        }
+
+        .app-item {
+            display: flex;
+            /* For icon and text alignment */
+            align-items: center;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            background-color: var(--light-bg);
+            border-radius: 8px;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            font-size: 16px;
+            color: var(--text-color);
+            white-space: nowrap;
+            /* Prevent text wrapping */
+            text-align: center;
+            /* Center text if it's the only element (collapsed) */
+        }
+
+        .app-item:hover {
+            background-color: #e6e6e6;
+            /* Lighter hover effect */
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            /* Slight lift effect */
+        }
+
+        /* Styling for SVG icons within app-item */
+        .app-item .icon-svg {
+            width: 18px;
+            /* Icon size */
+            height: 18px;
+            /* Icon size */
+            margin-left: 15px;
+            /* Space from text in RTL */
+            flex-shrink: 0;
+            /* Prevent shrinking */
+        }
+
+        .app-item .icon-svg path {
+            fill: var(--primary-color);
+            /* Color the SVG path */
+        }
+
+
+        /* Browser View (main content area) */
+        .browser-view {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background-color: white;
+            /* Content background */
+        }
+
+        /* Tabs Container */
+        .tabs-container {
+            background-color: #f8f8f8;
+            /* Slightly lighter than tab background */
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 10px;
+            /* Add some padding for scrollable tabs */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            -webkit-overflow-scrolling: touch;
+            /* Smooth scrolling on iOS */
+            scrollbar-width: none;
+            /* Hide scrollbar for Firefox */
+        }
+
+        /* Hide scrollbar for Chrome, Safari, Opera */
+        .tabs-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab {
+            padding: 10px 25px;
+            /* More padding for a softer look */
+            background-color: var(--secondary-color);
+            border-left: 1px solid #ccc;
+            /* Border on the left for RTL */
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            cursor: grab;
+            /* Indicate draggable */
+            position: relative;
+            min-width: 160px;
+            /* Slightly wider tabs */
+            text-align: center;
+            font-size: 15px;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Center text and close button */
+            margin-left: 5px;
+            /* Space between tabs */
+            transition: all 0.2s ease;
+        }
+
+        /* Remove border from the very first tab */
+        .tabs-container .tab:first-child {
+            border-left: none;
+        }
+
+        .tab.active {
+            background-color: white;
+            border-bottom: 3px solid var(--primary-color);
+            /* Thicker active border */
+            color: var(--primary-color);
+            font-weight: 500;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+            margin-top: -1px;
+            /* Slight lift to appear on top */
+            padding-bottom: 11px;
+            /* Adjust padding due to lift */
+        }
+
+        /* Dragging styles */
+        .tab.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+        }
+
+        .tab.drag-over {
+            border-bottom: 2px solid var(--accent-color);
+            /* Highlight target */
+        }
+
+
+        .tab-close {
+            margin-right: 10px;
+            /* Space between text and close button */
+            width: 20px;
+            height: 20px;
+            line-height: 18px;
+            /* Center 'x' vertically */
+            text-align: center;
+            border-radius: 50%;
+            background-color: #aaa;
+            /* Darker close button */
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            flex-shrink: 0;
+            /* Prevent shrinking */
+        }
+
+        .tab-close:hover {
+            background-color: #777;
+            transform: rotate(90deg);
+            /* Little animation */
+        }
+
+        /* Content Area */
+        .content-area {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            background-color: white;
+            /* Content background */
+        }
+
+        .iframe-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: none;
+            border: none;
+            /* Ensure no extra borders */
+        }
+
+        .iframe-container.active {
+            display: block;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background-color: white;
+            /* Ensure iframe background is white */
+        }
+
+        /* Footer */
+        .footer {
+            padding: 12px 20px;
+            text-align: center;
+            background-color: #e9e9e9;
+            /* Lighter footer */
+            border-top: 1px solid var(--border-color);
+            font-size: 13px;
+            color: #666;
+            font-weight: bold;
+            /* Added for bold */
+            font-style: italic;
+            /* Added for italic */
+        }
+
+        /* Hamburger Menu Icon for Mobile */
+        .menu-icon-svg {
+            display: none;
+            /* Hidden by default */
+            width: 24px;
+            height: 24px;
+            /* Position absolutely to the left (start in RTL) */
+            position: absolute;
+            right: 25px;
+            /* Adjust as needed for padding from the right edge */
+            cursor: pointer;
+            fill: white;
+            /* Color the SVG path */
+        }
+
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .header {
+                padding: 10px 15px;
+            }
+
+            .header h1 {
+                font-size: 18px;
+            }
+
+            .sidebar {
+                width: 100%;
+                /* Full width sidebar */
+                height: auto;
+                /* Auto height for content */
+                border-left: none;
+                border-bottom: 1px solid var(--border-color);
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                /* Initial state for hidden sidebar */
+                position: fixed;
+                /* Fix it to the top/right */
+                top: 0;
+                right: 0;
+                bottom: 0;
+                transform: translateX(100%);
+                /* Hide it off-screen to the right */
+                background-color: white;
+                padding-top: 60px;
+                /* Space for header */
+                box-shadow: -4px 0 10px rgba(0, 0, 0, 0.2);
+            }
+
+            /* On mobile, this class will show the sidebar */
+            .sidebar.active-mobile {
+                transform: translateX(0);
+                /* Slide in when active */
+            }
+
+            /* Override desktop collapse on mobile */
+            .sidebar.collapsed {
+                width: 100%;
+                /* Full width on mobile even if collapsed state is applied */
+            }
+
+            .sidebar.collapsed .app-item {
+                flex-direction: row;
+                /* Back to row on mobile */
+                padding: 10px 12px;
+                /* Restore desktop padding for mobile */
+                text-align: right;
+                /* Align text to right on mobile */
+            }
+
+            .sidebar.collapsed .app-item .app-label {
+                display: initial;
+                /* Show text on mobile even if collapsed state is applied */
+            }
+
+            .sidebar.collapsed .app-item .icon-svg {
+                margin-left: 15px;
+                /* Restore margin on mobile */
+                margin-bottom: 0;
+                /* Remove bottom margin on mobile */
+            }
+
+
+            .menu-icon-svg {
+                display: block;
+                /* Show SVG hamburger icon on mobile */
+                right: 15px;
+                /* Adjust for mobile padding */
+            }
+
+            .tabs-container {
+                padding: 0 5px;
+                /* Less padding for tabs on small screens */
+            }
+
+            .tab {
+                min-width: 120px;
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+
+            .tab-close {
+                width: 18px;
+                height: 18px;
+                line-height: 16px;
+                font-size: 11px;
+                margin-right: 5px;
+            }
+
+            .app-item {
+                font-size: 15px;
+                padding: 10px 12px;
+            }
+
+            .footer {
+                padding: 8px 15px;
+                font-size: 11px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 16px;
+            }
+
+            .tab {
+                min-width: 100px;
+                padding: 7px 10px;
+                font-size: 13px;
+            }
+
+            .tab-close {
+                width: 18px;
+                height: 18px;
+                line-height: 16px;
+                font-size: 11px;
+                margin-right: 5px;
+            }
+
+            .app-item {
+                font-size: 14px;
+                padding: 8px 10px;
+            }
+
+            .app-item .icon-svg {
+                /* Adjust SVG size for smaller screens */
+                width: 16px;
+                height: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="welcomeScreen"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #f5f5f5; z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; text-align: center; opacity: 1; transition: opacity 1s ease-out;">
+        <h2 style="color: #951B81; font-size: 3em; margin-bottom: 20px;">أهــلاً بــك فــي دليــل موظــف مركــز إتصــال
+            ليبيانــا</h2>
+    </div>
+
+    <div class="header">
+        <h1>دليــل موظــف مركــز إتصــال ليبيانــا</h1>
+        <svg class="menu-icon-svg" id="menuIcon" viewBox="0 0 24 24" fill="white">
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+        </svg>
+    </div>
+
+    <div class="main-layout">
+        <div class="browser-view">
+            <div class="tabs-container" id="tabsContainer">
+            </div>
+
+            <div class="content-area" id="contentArea">
+            </div>
+        </div>
+
+        <div class="sidebar" id="sidebar">
+            <div class="app-list">
+                <div class="app-item" onclick="openApp('الخدمات-المضافة.html', 'الخدمات المضافة')">
+                    <i>📱</i>
+                    <span class="app-label">الخدمات المضافة</span>
+                </div>
+                <div class="app-item" onclick="openApp('باقات-ليبيانا.html', 'باقات ليبيانا')">
+                    <i>📶</i>
+                    <span class="app-label">باقات ليبيانا</span>
+                </div>
+                <div class="app-item" onclick="openApp('مراكز-مبيعات-شركة ليبيانا-لسنة-2025.html', 'مراكز المبيعات')">
+                    <i>📋</i>
+                    <span class="app-label">مراكز المبيعات</span>
+                </div>
+                <div class="app-item" onclick="openApp('فتلكها.html', 'فتلكها')">
+                    <i>🧮</i>
+                    <span class="app-label">فتلكها</span>
+                </div>
+                <div class="app-item" onclick="openApp('index.html', 'تطبيق ماي ليبيانا')">
+                    <i>📶</i>
+                    <span class="app-label">تطبيق ماي ليبيانا</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        Made by Ahmed Zendah &amp; Moataz Masoud &copy;
+    </div>
+
+    <script>
+        let tabs = [];
+        let activeTabId = null;
+        let isMobile = window.matchMedia("(max-width: 768px)").matches; // Check if on mobile on load
+        let draggingTabId = null; // To store the ID of the tab being dragged
+
+        // Update isMobile on window resize
+        window.addEventListener('resize', () => {
+            isMobile = window.matchMedia("(max-width: 768px)").matches;
+            // When switching between desktop/mobile, ensure correct sidebar state
+            const sidebar = document.getElementById('sidebar');
+            if (isMobile) {
+                sidebar.classList.remove('collapsed'); // Remove desktop collapse
+            } else {
+                // If on desktop and sidebar was previously mobile-active, hide it
+                if (sidebar.classList.contains('active-mobile')) {
+                    sidebar.classList.remove('active-mobile');
+                }
+                // If there are tabs open, collapse sidebar
+                if (tabs.length > 0) {
+                    sidebar.classList.add('collapsed');
+                }
+            }
+        });
+
+
+        // Function to toggle sidebar visibility on mobile
+        function toggleSidebarMobile() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active-mobile');
+        }
+
+        // Add event listener to the menu icon
+        document.getElementById('menuIcon').addEventListener('click', toggleSidebarMobile);
+
+        // Close sidebar if a link is clicked (on mobile)
+        document.querySelectorAll('.app-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const sidebar = document.getElementById('sidebar');
+                if (isMobile && sidebar.classList.contains('active-mobile')) {
+                    sidebar.classList.remove('active-mobile');
+                }
+            });
+        });
+
+        // Close sidebar if user clicks outside of it on mobile
+        document.addEventListener('click', function (event) {
+            const sidebar = document.getElementById('sidebar');
+            const menuIcon = document.getElementById('menuIcon');
+            const isClickInsideSidebar = sidebar.contains(event.target);
+            const isClickOnMenuIcon = menuIcon.contains(event.target);
+
+            // Only close if sidebar is active AND on mobile AND click is outside sidebar and not on menu icon
+            if (isMobile && sidebar.classList.contains('active-mobile') && !isClickInsideSidebar && !isClickOnMenuIcon) {
+                sidebar.classList.remove('active-mobile');
+            }
+        });
+
+        // Auto-hide/show sidebar on hover (for desktop)
+        const sidebar = document.getElementById('sidebar');
+        sidebar.addEventListener('mouseenter', () => {
+            if (!isMobile) { // Only apply on desktop
+                sidebar.classList.remove('collapsed');
+            }
+        });
+
+        sidebar.addEventListener('mouseleave', () => {
+            if (!isMobile && tabs.length > 0) { // Only apply on desktop and if a tab is open
+                sidebar.classList.add('collapsed');
+            }
+        });
+
+
+        // Open new app in a tab
+        function openApp(url, title) {
+            // Check if tab is already open
+            const existingTab = tabs.find(tab => tab.url === url);
+            if (existingTab) {
+                switchToTab(existingTab.id);
+                return;
+            }
+
+            const tabId = 'tab-' + Date.now();
+
+            // Create new tab object
+            const tab = {
+                id: tabId,
+                url: url,
+                title: title,
+                iframeId: 'iframe-' + tabId
+            };
+
+            tabs.push(tab);
+            renderTabs();
+            switchToTab(tabId);
+
+            // Create iframe container for content
+            const iframeContainer = document.createElement('div');
+            iframeContainer.className = 'iframe-container';
+            iframeContainer.id = tab.iframeId;
+
+            const iframe = document.createElement('iframe');
+            iframe.src = url;
+            // Add loading attribute for better performance
+            iframe.loading = "lazy";
+
+            // Special handling for PDF files
+            if (url.toLowerCase().endsWith('.pdf')) {
+                // Browsers can often render PDFs directly in an iframe
+                // You might add specific attributes here if needed, e.g., #toolbar=0&navpanes=0
+                // For example: iframe.src = url + '#toolbar=0&navpanes=0';
+            }
+
+            iframeContainer.appendChild(iframe);
+            document.getElementById('contentArea').appendChild(iframeContainer);
+
+            // Scroll to the newly opened tab
+            const tabsContainer = document.getElementById('tabsContainer');
+            setTimeout(() => { // Small delay to allow tab to render
+                const newTabElement = document.querySelector(`.tab[data-tab-id='${tabId}']`);
+                if (newTabElement) {
+                    newTabElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                }
+            }, 100);
+
+            // Removed the line that collapsed the sidebar immediately after opening a tab
+            // if (!isMobile) {
+            //     sidebar.classList.add('collapsed');
+            // }
+        }
+
+        // Render tabs
+        function renderTabs() {
+            const tabsContainer = document.getElementById('tabsContainer');
+            tabsContainer.innerHTML = '';
+
+            tabs.forEach(tab => {
+                const tabElement = document.createElement('div');
+                tabElement.className = 'tab' + (tab.id === activeTabId ? ' active' : '');
+                tabElement.textContent = tab.title;
+                tabElement.setAttribute('data-tab-id', tab.id); // Add data attribute for easy selection
+                tabElement.setAttribute('draggable', 'true'); // Make tabs draggable
+
+                tabElement.onclick = (e) => {
+                    // Only switch tab if not dragging or clicking close button
+                    if (!e.target.classList.contains('tab-close')) {
+                        switchToTab(tab.id);
+                    }
+                };
+
+                const closeBtn = document.createElement('span');
+                closeBtn.className = 'tab-close';
+                closeBtn.innerHTML = '&times;';
+                closeBtn.onclick = (e) => {
+                    e.stopPropagation(); // Prevent tab click when closing
+                    closeTab(tab.id);
+                };
+
+                tabElement.appendChild(closeBtn);
+                tabsContainer.appendChild(tabElement);
+            });
+
+            addDragAndDropListeners(); // Re-add listeners after re-rendering
+        }
+
+        // Switch between tabs
+        function switchToTab(tabId) {
+            activeTabId = tabId;
+
+            // Update iframe containers visibility
+            document.querySelectorAll('.iframe-container').forEach(container => {
+                container.classList.remove('active');
+            });
+
+            const activeIframe = document.getElementById(tabs.find(t => t.id === tabId).iframeId);
+            if (activeIframe) {
+                activeIframe.classList.add('active');
+            }
+
+            renderTabs(); // Re-render tabs to update active state
+
+            // Scroll active tab into view
+            const tabsContainer = document.getElementById('tabsContainer');
+            const activeTabElement = document.querySelector(`.tab[data-tab-id='${tabId}']`);
+            if (activeTabElement) {
+                activeTabElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+        }
+
+        // Close a tab
+        function closeTab(tabId) {
+            const tabIndex = tabs.findIndex(tab => tab.id === tabId);
+            if (tabIndex === -1) return;
+
+            // Remove the iframe
+            const iframeContainer = document.getElementById(tabs[tabIndex].iframeId);
+            if (iframeContainer) {
+                iframeContainer.remove();
+            }
+
+            // Remove tab from array
+            tabs.splice(tabIndex, 1);
+
+            // Determine new active tab
+            if (activeTabId === tabId) {
+                activeTabId = tabs.length > 0 ? tabs[Math.min(tabIndex, tabs.length - 1)].id : null;
+            }
+
+            renderTabs();
+
+            // Show new active content
+            if (activeTabId) {
+                const activeIframe = document.getElementById(tabs.find(t => t.id === activeTabId).iframeId);
+                if (activeIframe) {
+                    activeIframe.classList.add('active');
+                }
+            } else {
+                // If no tabs are left, ensure sidebar is expanded on desktop
+                if (!isMobile) {
+                    sidebar.classList.remove('collapsed');
+                }
+            }
+        }
+
+        // Drag and Drop Functions
+        function addDragAndDropListeners() {
+            const tabElements = document.querySelectorAll('.tab');
+            const tabsContainer = document.getElementById('tabsContainer');
+
+            tabElements.forEach(tabElement => {
+                tabElement.addEventListener('dragstart', dragStart);
+                tabElement.addEventListener('dragover', dragOver);
+                tabElement.addEventListener('dragleave', dragLeave);
+                tabElement.addEventListener('drop', drop);
+                tabElement.addEventListener('dragend', dragEnd);
+            });
+        }
+
+        function dragStart(e) {
+            draggingTabId = e.target.dataset.tabId;
+            e.dataTransfer.setData('text/plain', draggingTabId);
+            e.target.classList.add('dragging');
+
+            // Set a timeout to allow the class to be applied before screenshot
+            setTimeout(() => e.target.classList.add('hide'), 0); // Optional: hide original
+        }
+
+        function dragOver(e) {
+            e.preventDefault(); // Essential to allow drop
+            const targetTab = e.target.closest('.tab');
+            if (!targetTab || targetTab.dataset.tabId === draggingTabId) return;
+
+            // Remove drag-over class from previous target
+            document.querySelectorAll('.tab.drag-over').forEach(tab => tab.classList.remove('drag-over'));
+
+            // Add drag-over class to current target
+            targetTab.classList.add('drag-over');
+        }
+
+        function dragLeave(e) {
+            e.target.classList.remove('drag-over');
+        }
+
+        function drop(e) {
+            e.preventDefault();
+            const droppedTabId = e.dataTransfer.getData('text/plain');
+            const targetTabElement = e.target.closest('.tab');
+
+            if (droppedTabId === targetTabElement.dataset.tabId) {
+                // Dropped on itself, no reorder needed
+                return;
+            }
+
+            const droppedIndex = tabs.findIndex(tab => tab.id === droppedTabId);
+            const targetIndex = tabs.findIndex(tab => tab.id === targetTabElement.dataset.tabId);
+
+            if (droppedIndex > -1 && targetIndex > -1) {
+                // Remove the dropped tab from its original position
+                const [movedTab] = tabs.splice(droppedIndex, 1);
+
+                // Insert the dropped tab at the new position
+                tabs.splice(targetIndex, 0, movedTab);
+
+                renderTabs(); // Re-render to reflect the new order
+                switchToTab(activeTabId); // Ensure active tab remains active
+            }
+        }
+
+        function dragEnd(e) {
+            e.target.classList.remove('dragging', 'hide'); // Remove dragging classes
+            document.querySelectorAll('.tab.drag-over').forEach(tab => tab.classList.remove('drag-over'));
+            draggingTabId = null;
+        }
+
+        // Handle initial load and welcome screen
+        window.onload = function () {
+            const welcomeScreen = document.getElementById('welcomeScreen');
+            if (welcomeScreen) {
+                setTimeout(() => {
+                    welcomeScreen.style.opacity = '0'; // Start fading out
+                    setTimeout(() => {
+                        welcomeScreen.style.display = 'none'; // Hide after fade
+                        activeTabId = null; // Ensure no tab is active
+                        renderTabs(); // Re-render tabs to clear any active state
+                    }, 1000); // Matches the transition duration
+                }, 3000); // 3 seconds before fade starts
+            }
+            // Removed the openApp call here so no default tab is opened.
+        };
+    </script>
+</body>
+
+</html>

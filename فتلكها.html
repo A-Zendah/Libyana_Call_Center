@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فتلكها</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Include Google Material Icons if not already included -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+    <style>
+        /* إعداد الخط */
+        body {
+            font-family: 'Tajawal', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            box-sizing: border-box;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 400px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.5s ease;
+        }
+
+
+        /* Dark mode invert effect */
+        body.dark-mode .call-center-icon {
+            background-color: #5A5A5A;
+        }
+
+        /* عنوان التطبيق */
+        h1 {
+            font-size: 28px;
+            color: #951B81;
+            margin-bottom: 20px;
+            transition: color 0.5s ease, transform 0.5s ease;
+            /* Adding transition for color and scaling */
+
+            /* Initial state of the animation (before it is fully visible) */
+            opacity: 0;
+            transform: scale(0.8);
+
+            /* Animation for fade-in, scale-up and bounce */
+            animation: fadeInScaleUpBounce 1s ease-out forwards;
+        }
+
+        /* Keyframes for fade-in, scale-up, and bounce */
+        @keyframes fadeInScaleUpBounce {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            60% {
+                opacity: 1;
+                transform: scale(1.1);
+                /* Slightly scale up before bouncing */
+            }
+
+            80% {
+                transform: scale(0.9);
+                /* Shrink slightly */
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+                /* Final normal size */
+            }
+        }
+
+
+
+
+
+        /* تنسيق شريط التمرير */
+        .slider-container {
+            margin: 20px 0;
+            text-align: absolute;
+            font-weight: bold;
+
+        }
+
+        /* Call center icon styling */
+        .call-center-icon {
+            position: fixed;
+            bottom: 20px;
+            /* Distance from the bottom */
+            right: 20px;
+            /* Distance from the right */
+            background-color: #951B81;
+            /* Background color */
+            color: #FFED00;
+            /* Icon color */
+            padding: 15px;
+            /* Space around the icon */
+            border-radius: 50%;
+            /* Makes it circular */
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* Subtle shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            /* Smooth transition */
+            font-size: 18px;
+            /* Icon size */
+        }
+
+        /* Hover effect for the icon */
+        .call-center-icon:hover {
+            transform: scale(1.1);
+            /* Slightly enlarge on hover */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            /* Stronger shadow on hover */
+        }
+
+
+        .slider-container label {
+            color: #951B81;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .slider-container span {
+            font-size: 14px;
+            color: #555;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        /* تصميم شريط التمرير */
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            background: #ddd;
+            outline: none;
+            border-radius: 5px;
+        }
+
+        /* تصميم شريط التمرير */
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            background: #ddd;
+            outline: none;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+            /* إضافة تأثير الانتقال عند التمرير */
+        }
+
+        /* تصميم اللمسة النهائية للمؤشر */
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background-color: #951B81;
+            border-radius: 50%;
+            border: 2px solid #FFED00;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            /* إضافة تأثيرات التغيير في اللون، التحجيم والظل */
+        }
+
+        /* تأثير عند التمرير على المؤشر */
+        input[type="range"]::-webkit-slider-thumb:hover {
+            background-color: #7f156f;
+            transform: scale(1.2);
+            /* تكبير المؤشر قليلاً عند التمرير */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            /* إضافة ظل حول المؤشر */
+        }
+
+        /* تصميم اللمسة النهائية للمؤشر في متصفحات Firefox */
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background-color: #951B81;
+            border-radius: 50%;
+            border: 2px solid #FFED00;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            /* نفس التأثيرات كما في الـ Webkit */
+        }
+
+        /* تأثير عند التمرير على المؤشر في Firefox */
+        input[type="range"]::-moz-range-thumb:hover {
+            background-color: #7f156f;
+            transform: scale(1.2);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* تغيير الخلفية عند التمرير */
+        input[type="range"]:active {
+            background: #7f156f;
+        }
+
+
+        /* عرض التكلفة الإجمالية */
+        .cost-container {
+            margin-top: 20px;
+            color: #951B81;
+        }
+
+        .cost-container h2 {
+            font-size: 20px;
+            color: #000;
+        }
+
+        .cost-container h3 {
+            font-size: 16px;
+            color: #951B81;
+            margin: 10px 0;
+        }
+
+        .cost-container p {
+            font-size: 14px;
+            color: #333;
+        }
+
+        /* زر الباقات الإضافية وزر العودة */
+        .extra-plans-button,
+        .back-button {
+            background-color: #951B81;
+            color: #FFED00;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+            margin-top: 20px;
+            /* إضافة مسافة بين الأزرار */
+            text-decoration: none;
+            transition: all 0.3s ease;
+            /* إضافة تأثير الانتقال */
+        }
+
+        /* تأثير عند التمرير على الأزرار */
+        .extra-plans-button:hover,
+        .back-button:hover {
+            background-color: #7f156f;
+            transform: scale(1.1);
+            /* تكبير الأزرار قليلاً */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            /* إضافة ظل عند التمرير */
+        }
+
+
+        /* Footer */
+        .footer {
+            position: fixed;
+            bottom: 14px;
+            left: 14px;
+            background: rgba(149, 27, 129, 0.45);
+            color: #fff;
+            font-weight: bold;
+            font-size: 12px !important;
+            font-size-adjust: none;
+            font-family: Arial, sans-serif;
+            padding: 4px 14px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
+            z-index: 9999;
+            letter-spacing: 0.02em;
+            transition: background 0.3s, color 0.3s;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            width: max-content;
+            min-width: 160px;
+        }
+
+        /* Dark Mode Footer */
+        body.dark-mode .footer {
+            color: #ffffff;
+            /* White color in dark mode */
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            background-color: #5A5A5A;
+            color: #f5f5f5;
+        }
+
+        /* Dark mode animation */
+        body,
+        .app {
+            transition: background-color 0.5s, color 0.5s, transform 0.5s;
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #23232b;
+            color: #f0f0f0;
+        }
+
+        body.dark-mode .app {
+            background-color: #2e2e38;
+            color: #f0f0f0;
+            box-shadow: 0 4px 8px rgba(201, 123, 231, 0.2);
+        }
+
+        body.dark-mode h1 {
+            color: #f0c4f6;
+        }
+
+        body.dark-mode .slider-container label {
+            color: #f0c4f6;
+        }
+
+        body.dark-mode .slider-container span {
+            color: #ccc;
+        }
+
+        body.dark-mode input[type="range"] {
+            background: #444;
+        }
+
+        body.dark-mode input[type="range"]::-webkit-slider-thumb {
+            background-color: #c97be7;
+            border: 2px solid #FFED00;
+        }
+
+        body.dark-mode .cost-container h2 {
+            color: #f0f0f0;
+        }
+
+        body.dark-mode .cost-container h3 {
+            color: #f0c4f6;
+        }
+
+        body.dark-mode .cost-container p {
+            color: #ddd;
+        }
+
+        body.dark-mode .extra-plans-button,
+        body.dark-mode .back-button {
+            background-color: #7a1669;
+            color: #FFED00;
+        }
+
+        body.dark-mode .extra-plans-button:hover,
+        body.dark-mode .back-button:hover {
+            background-color: #5d1257;
+        }
+
+        body.dark-mode .extra-plans li {
+            color: #f0f0f0 !important;
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 35px;
+            cursor: pointer;
+            color: #951B81;
+            z-index: 1000;
+        }
+
+        body.dark-mode .dark-mode-toggle {
+            color: #f0f0f0;
+        }
+
+        body.dark-mode .call-center-icon {
+            background-color: #7a1669;
+            color: #FFED00;
+        }
+
+        body.dark-mode #extraPlans {
+            background-color: #2e2e38;
+            color: #f0f0f0;
+        }
+
+        body.dark-mode #extraPlans h1 {
+            color: #f0c4f6;
+        }
+
+        body.dark-mode #extraPlans ul.extra-plans li {
+            color: #f0f0f0 !important;
+        }
+    </style>
+</head>
+
+<body onload="updateCost()">
+
+    <div class="dark-mode-toggle" onclick="toggleDarkMode()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32"
+            style="width: 32px; height: 32px; cursor: pointer; transition: transform 0.3s ease;">
+            <defs>
+                <linearGradient id="sunGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#FFC700;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#FF9800;stop-opacity:1" />
+                </linearGradient>
+                <filter id="sunGlow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+                    <feMerge>
+                        <feMergeNode in="coloredBlur" />
+                        <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                </filter>
+            </defs>
+            <g filter="url(#sunGlow)" transform="translate(12,12) scale(0.9) translate(-12,-12)">
+                <circle cx="12" cy="12" r="5" fill="url(#sunGradient)" />
+                <path
+                    d="M12 2v2M12 20v2M4.93 4.93l1.414 1.414M17.66 17.66l1.414 1.414M2 12h2M20 12h2M4.93 19.07l1.414-1.414M17.66 6.34l1.414-1.414"
+                    stroke="url(#sunGradient)" stroke-width="2" stroke-linecap="round" fill="none" />
+            </g>
+        </svg>
+    </div>
+    <div class="app" id="mainApp">
+        <h1>فتلكها</h1>
+
+        <!-- شريط حزمة الإنترنت -->
+        <div class="slider-container">
+            <label for="internetSlider">الإنترنت</label>
+            <input type="range" id="internetSlider" min="0" max="6" value="0" step="1" oninput="updateCost()">
+            <span id="internetValue">40 قيقا</span>
+        </div>
+
+        <!-- شريط دقائق المكالمات -->
+        <div class="slider-container">
+            <label for="callSlider">الدقائق</label>
+            <input type="range" id="callSlider" min="0" max="6" value="0" step="1" oninput="updateCost()">
+            <span id="callValue">104s0 دقيقة</span>
+        </div>
+
+        <!-- عرض التكلفة الإجمالية -->
+        <div class="cost-container">
+            <h2>السعر : <span id="totalCost">0</span> دينار</h2>
+            <h3>إستمتع برسائل نصية وحصة نت للصبح مجاناً عند الإشتراك</h3>
+            <p>رسائل قصيرة : <span id="smsGift">0</span> رسالة</p>
+            <p>حصة نت للصبح : <span id="morningDataGift">0</span> قيقا</p>
+        </div>
+
+<div class="cost-container">
+
+            <h4>ملاحظة مهمة جداً</h4>
+            <h3>الباقات بحصة 30 و 40 و 60 و 80 قيقا صلاحيتها شهر فقط</h3>
+            <h3>الباقات بحصة 100 و 150 و 200 قيقا صلاحيتها شهرين</h3>
+        </div>
+
+        <button class="extra-plans-button" onclick="showExtraPlans()">عرض الباقات الإضافية</button>
+    </div>
+
+    <div id="extraPlans" class="app" style="display:none;">
+        <h1>الباقات الإضافية</h1>
+        <ul class="extra-plans">
+            <li style="color: black;"><strong>باقة 10 جيجا بصلاحية 7 أيام , سعر الباقة : 20 دينار</strong></li><br>
+            <li style="color: black;"><strong>باقة 15 جيجا + 50 دقيقة مكالمات بصلاحية 15 يوم , سعر الباقة 25
+                    دينار</strong></li><br>
+            <li style="color: black;"><strong>باقة 20 جيجا بصلاحية 15 يوم , سعر الباقة 35 دينار</strong></li><br>
+            <li style="color: black;"><strong>باقة 1 تيرا ( خارج وقت الذروة ) بصلاحية 30 يوم , سعر الباقة 10
+                    دينار</strong></li><br>
+        </ul>
+        <button class="back-button" onclick="showMainApp()">العودة إلى الصفحة الرئيسية</button>
+    </div>
+
+    <!-- Footer -->
+
+
+
+    <script>
+
+        // Toggle Dark Mode with localStorage support
+        function toggleDarkMode() {
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+
+            // Save user preference
+            const isDarkMode = body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDarkMode);
+        }
+
+        // Check for saved user preference
+        function checkDarkModePreference() {
+            const savedMode = localStorage.getItem('darkMode');
+            if (savedMode === 'true') {
+                document.body.classList.add('dark-mode');
+            }
+        }
+
+        // القيم المتاحة للشرائح
+        const internetOptions = [30 , 40, 60, 80, 100, 150, 200];
+        const callOptions = [100, 200, 300, 500, 800, 1200, 1500];
+
+        // مصفوفة الأسعار والحصة الإضافية (السعر، الرسائل النصية، حصة نت للصبح)
+        const plansMatrix = [
+            [[35, 105, 30], [40, 120, 30], [45, 135, 30], [60, 180, 30], [70, 210, 30], [85, 255, 30], [100, 300, 30]], // 30 قيقا
+            [[45, 135, 40], [50, 150, 40], [55, 165, 40], [70, 210, 40], [80, 240, 40], [95, 285, 40], [110, 330, 40]], // 40 قيقا
+            [[60, 180, 60], [65, 195, 60], [70, 210, 60], [85, 255, 60], [95, 285, 60], [110, 330, 60], [125, 375, 60]], // 60 قيقا
+            [[75, 225, 80], [80, 240, 80], [85, 255, 80], [100, 300, 80], [110, 330, 80], [125, 375, 80], [140, 420, 80]], // 80 قيقا
+            [[85, 255, 100], [90, 270, 100], [95, 285, 100], [110, 330, 100], [120, 360, 100], [135, 405, 100], [150, 450, 100]], // 100 قيقا
+            [[115, 345, 150], [120, 360, 150], [125, 375, 150], [140, 420, 150], [150, 450, 150], [165, 495, 150], [180, 540, 150]], // 150 قيقا
+            [[130, 390, 200], [135, 405, 200], [140, 420, 200], [155, 465, 200], [165, 495, 200], [180, 540, 200], [195, 585, 200]], // 200 قيقا
+
+        ];
+
+        // دالة حساب قيمة الباقة
+        function updateCost() {
+            const internetSlider = document.getElementById('internetSlider');
+            const callSlider = document.getElementById('callSlider');
+            const internetValue = document.getElementById('internetValue');
+            const callValue = document.getElementById('callValue');
+            const totalCost = document.getElementById('totalCost');
+            const smsGift = document.getElementById('smsGift');
+            const morningDataGift = document.getElementById('morningDataGift');
+
+            // الحصول على المؤشرات لكل من الشرائح
+            const internetIndex = parseInt(internetSlider.value);
+            const callIndex = parseInt(callSlider.value);
+
+            // استخراج القيم بناءً على المؤشرات
+            const plan = plansMatrix[internetIndex][callIndex];
+            const cost = plan[0];
+            const smsBonus = plan[1];
+            const morningDataBonus = plan[2];
+
+            // تحديث العرض للقيم
+            internetValue.textContent = internetOptions[internetIndex] + ' قيقا';
+            callValue.textContent = callOptions[callIndex] + ' دقيقة';
+            totalCost.textContent = cost;
+            smsGift.textContent = smsBonus;
+            morningDataGift.textContent = morningDataBonus;
+        }
+
+        // دالة لإظهار صفحة الباقات الإضافية
+        function showExtraPlans() {
+            document.getElementById('mainApp').style.display = 'none';
+            document.getElementById('extraPlans').style.display = 'block';
+        }
+
+        // دالة لإظهار الصفحة الرئيسية
+        function showMainApp() {
+            document.getElementById('extraPlans').style.display = 'none';
+            document.getElementById('mainApp').style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>

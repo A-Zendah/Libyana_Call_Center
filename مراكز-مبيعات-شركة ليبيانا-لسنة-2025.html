@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مراكز مبيعات ليبيانا يوليو 2025</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #951B81;
+            --primary-light: #b34b9f;
+            --accent-color: #FFED00;
+            --accent-dark: #e6d600;
+            --light-bg: #fdf6ee;
+            --light-bg-2: #f5e9dd;
+            --dark-bg: #121212;
+            --dark-bg-2: #1e1e1e;
+            --dark-text: #e0e0e0;
+            --light-text: #343a40;
+            --border-radius: 15px;
+            --border-radius-sm: 8px;
+            --border-color: rgba(0, 0, 0, 0.05);
+            --font-family: 'Tajawal', sans-serif;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background: var(--light-bg);
+            font-family: var(--font-family);
+            color: var(--light-text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            transition: var(--transition);
+        }
+
+        .footer {
+            padding: 12px 20px;
+            text-align: center;
+            background-color: #e9e9e9;
+            /* Lighter footer */
+            border-top: 1px solid var(--border-color);
+            font-size: 13px;
+            color: #666;
+            font-weight: bold;
+            /* Added for bold */
+            font-style: italic;
+            /* Added for italic */
+        }
+
+
+        body.dark-mode {
+            background: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            margin: 40px auto;
+            transition: var(--transition);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            font-weight: 700;
+            transition: var(--transition);
+        }
+
+        body.dark-mode h1 {
+            color: var(--accent-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            background: white;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        body.dark-mode table {
+            background: var(--dark-bg-2);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: right;
+            border: none;
+            transition: var(--transition);
+        }
+
+        th {
+            background: var(--primary-color);
+            color: var(--accent-color);
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+        }
+
+        td {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        body.dark-mode td {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background-color: rgba(149, 27, 129, 0.1);
+        }
+
+        body.dark-mode tr:hover {
+            background-color: rgba(255, 237, 0, 0.1);
+        }
+
+        .section-header {
+            background: var(--primary-color);
+            color: var(--accent-color);
+            padding: 1.5rem;
+            text-align: center;
+            border-radius: var(--border-radius);
+            margin: 30px 0;
+            box-shadow: 0 4px 12px rgba(149, 27, 129, 0.2);
+            transition: var(--transition);
+        }
+
+        body.dark-mode .section-header {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .filter-container {
+            margin-bottom: 30px;
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        body.dark-mode .filter-container {
+            background: var(--dark-bg-2);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .filter-container label {
+            font-weight: 500;
+            margin-left: 10px;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .filter-container label {
+            color: var(--dark-text);
+        }
+
+        .form-select {
+            border-radius: var(--border-radius-sm);
+            border: 1px solid var(--border-color);
+            padding: 10px 15px;
+            font-family: var(--font-family);
+            transition: var(--transition);
+            width: 250px;
+            text-align: right;
+        }
+
+        body.dark-mode .form-select {
+            background: var(--dark-bg);
+            color: var(--dark-text);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+        }
+
+        .theme-toggle button {
+            background-color: var(--primary-color);
+            color: var(--accent-color);
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-family);
+            box-shadow: 0 2px 8px rgba(149, 27, 129, 0.3);
+        }
+
+        .theme-toggle button:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .city-count {
+            background: var(--accent-color);
+            color: var(--primary-color);
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        body.dark-mode .city-count {
+            background: var(--primary-color);
+            color: var(--accent-color);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 30px;
+            color: var(--light-text);
+            display: none;
+        }
+
+        body.dark-mode .no-results {
+            color: var(--dark-text);
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 12px 20px 12px 40px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+            font-family: var(--font-family);
+            transition: var(--transition);
+        }
+
+        body.dark-mode .search-container input {
+            background: var(--dark-bg-2);
+            color: var(--dark-text);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .search-container i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+        }
+
+        body.dark-mode .search-container i {
+            color: var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            th, td {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            
+            .filter-container {
+                padding: 15px;
+            }
+            
+            .form-select {
+                width: 100%;
+            }
+            
+            .theme-toggle {
+                position: static;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+            
+            .theme-toggle button {
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="theme-toggle">
+        <button id="darkModeToggle">
+            <i id="themeIcon" class="fas fa-moon"></i>
+            <span>الوضع الليلي</span>
+        </button>
+    </div>
+
+    <h1>مراكز مبيعات ليبيانا 2025</h1>
+
+    <div class="filter-container">
+        <div class="search-container">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="ابحث عن مركز أو مدينة أو عنوان أو كلمة مفتاحية...">
+        </div>
+
+        <label for="citySelect">اختر المدينة:</label>
+        <select id="citySelect" class="form-select">
+            <option value="all">جميع المدن (<span id="totalCount" class="city-count">0</span>)</option>
+            <option value="طرابلس">طرابلس (<span class="city-count">0</span>)</option>
+            <option value="مصراتة">مصراتة (<span class="city-count">0</span>)</option>
+            <option value="بنغازي">بنغازي (<span class="city-count">0</span>)</option>
+            <option value="سبها">سبها (<span class="city-count">0</span>)</option>
+            <option value="غريان">غريان (<span class="city-count">0</span>)</option>
+            <option value="زوارة">زوارة (<span class="city-count">0</span>)</option>
+            <option value="الزاوية">الزاوية (<span class="city-count">0</span>)</option>
+            <option value="البيضاء">البيضاء (<span class="city-count">0</span>)</option>
+            <option value="الجديدة">الجديدة (<span class="city-count">0</span>)</option>
+            <option value="الجفرة">الجفرة (<span class="city-count">0</span>)</option>
+            <option value="الخمس">الخمس (<span class="city-count">0</span>)</option>
+            <option value="الزنتان">الزنتان (<span class="city-count">0</span>)</option>
+            <option value="المرج">المرج (<span class="city-count">0</span>)</option>
+            <option value="إجدابيا">إجدابيا (<span class="city-count">0</span>)</option>
+            <option value="براك الشاطئ">براك الشاطئ (<span class="city-count">0</span>)</option>
+            <option value="درنة">درنة (<span class="city-count">0</span>)</option>
+            <option value="زليتن">زليتن (<span class="city-count">0</span>)</option>
+            <option value="سرت">سرت (<span class="city-count">0</span>)</option>
+            <option value="صبراتة">صبراتة (<span class="city-count">0</span>)</option>
+            <option value="طبرق">طبرق (<span class="city-count">0</span>)</option>
+            <option value="يفرن">يفرن (<span class="city-count">0</span>)</option>
+        </select>
+    </div>
+
+    <div class="section-header">
+        <h3>مراكز المبيعات</h3>
+    </div>
+
+    <table id="salesCenters">
+        <thead>
+            <tr>
+                <th>المدينة</th>
+                <th>مركز خدمات</th>
+                <th>العنوان</th>
+                <th>توقيت العمل</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-city="طرابلس" data-keywords="أبوستة الشط ميناء طرابلس بحري">
+                <td>طرابلس</td>
+                <td>الفرع الرئيسي - أبوستة</td>
+                <td>طريق الشط، مقابل ميناء طرابلس البحري</td>
+                <td>08:00 صباحاً - 03:00 ظهراً</td>
+            </tr>
+            <tr data-city="طرابلس" data-keywords="لجنة أولمبية أولمبي">
+                <td>طرابلس</td>
+                <td>مركز مبيعات اللجنة الأولمبية</td>
+                <td>بالقرب من مقر اللجنة الأولمبية بطرابلس</td>
+                <td>08:00 صباحاً - 07:00 مساءً</td>
+            </tr>
+            <tr data-city="طرابلس" data-keywords="سوق جمعة الجمعــة أولاد بن الحاج">
+                <td>طرابلس</td>
+                <td>مركز مبيعات سوق الجمعــة</td>
+                <td>بالقرب من الإشارة الضوئية أولاد بن الحاج</td>
+                <td>08:00 صباحاً - 07:00 مساءً</td>
+            </tr>
+            <tr data-city="طرابلس" data-keywords="تاجوراء المراونة">
+                <td>طرابلس</td>
+                <td>مركز mبيعات تاجوراء</td>
+                <td>بالقرب من الإشارة الضوئية المراونة</td>
+                <td>08:00 صباحاً - 07:00 مساءً</td>
+            </tr>
+            <tr data-city="طرابلس" data-keywords="جنزور جوازات">
+                <td>طرابلس</td>
+                <td>مركز مبيعات جنzور</td>
+                <td>بالقرب من مكتب جوازات جنزور</td>
+                <td>08:00 صباحاً - 07:00 مساءً</td>
+            </tr>
+            <tr data-city="طرabلس" data-keywords="زناتة">
+                <td>طرابلس</td>
+                <td>مركز مبيعات زناتة</td>
+                <td>بالقرب من الإشارة الضوئية زناتة</td>
+                <td>08:00 صباحاً - 07:00 مساءً</td>
+            </tr>
+            <tr data-city="طرابلس" data-keywords="قصر بن غشير عافية مصحة">
+                <td>طرابلس</td>
+                <td>مركز مبيعات قصر بن غشير</td>
+                <td>بالقرب من مصحة العافية</td>
+                <td>08:00 صباحاً - 07:00 مساءً</td>
+            </tr>
+            <tr data-city="طرابلس" data-keywords="مطار معيتيقة">
+                <td>طرابلس</td>
+                <td>مركز مبيعات المطار</td>
+                <td>مطار معيتيقة</td>
+                <td>08:00 صباحاً - 07:00 مساءً</td>
+            </tr>
+            <tr data-city="طرابلس" data-keywords="شركات بريد ذات العماد">
+                <td>طرابلس</td>
+                <td>مركز مبيعات الشركات</td>
+                <td>مكتب بريد مجمع ذات العماد البرج الثالث الدور الأرضي</td>
+                <td>08:00 صباحاً - 02:00 ظهراً</td>
+            </tr>
+            <tr data-city="طرابلس" data-keywords="إدارة أبو ستة">
+                <td>طرابلس</td>
+                <td>مركز مبيعات الإدارة</td>
+                <td>مبنى ليبيانا الرئيسي أبو ستة</td>
+                <td>08:00 صباحاً - 02:00 ظهراً</td>
+            </tr>
+            <tr data-city="الزاوية" data-keywords="مصرف الصحاري">
+                <td>الزاوية</td>
+                <td>مركز مبيعات الزاوية</td>
+                <td>مبنى مصرف الصحاري</td>
+                <td>08:00 صباحاً - 07:00 مساءً</td>
+            </tr>
+            <tr data-city="الزنتان" data-keywords="كلية تربية">
+                <td>الزنتان</td>
+                <td>مركز مبيعات الزنتان</td>
+                <td>بالقرب من كلية التربية الزنتan</td>
+                <td>08:00 صباحاً - 03:00 ظهراً</td>
+            </tr>
+            <tr data-city="يفرن" data-keywords="جبل غربي غاسرو">
+                <td>يفرن</td>
+                <td>مركزك مبيعات يفرن</td>
+                <td>الجبل الغربي بمنطقة غاسرو</td>
+                <td>08:00 صباحاً - 03:00 ظهراً</td>
+            </tr>
+            <tr data-city="زوارة" data-keywords="ساحلي رأس جدير">
+                <td>زوارة</td>
+                <td>مركز مبيعات زوارة</td>
+                <td>الطريق الساحلي بعد الإشارة الضوئية في اتجاه رأس جدير</td>
+                <td>08:00 صباحاً - 07:00 مساءً</td>
+            </tr>
+            <tr data-city="صبراتة" data-keywords="ساحلي مصحة صفاء">
+                <td>صبراتة</td>
+                <td>مركز مبيعات صبراتة</td>
+                <td>الطريق الساحلي مقابل مصحة الصفاء</td>
+                <td>08:00 صباحاً - 07:00 مساءً</td>
+            </tr>
+            <tr data-city="غريان" data-keywords="شارع ثورة جامعة">
+                <td>غريان</td>
+                <td>مركز مبيعات غريان</td>
+                <td>شارع الثورة بالقرب من إدارة جامعة غريان</td>
+                <td>08:00 صباحاً - 07:00 مساءً</td>
+            </tr>
+            <tr data-city="مصراتة" data-keywords=" فندق قوز التيك تاورغاء أبوقرين">
+                <td>مصراتة</td>
+                <td>مركز مبيعات مصراتة</td>
+                <td>بجوار فندق قوز التيك</td>
+                <td>08:00 صباحاً - 07:00 مساءً</td>
+            </tr>
+            <tr data-city="مصراتة" data-keywords="زاوية محجوب مدرسة ابوبكر صديق تاروغاء أبوقرين">
+                <td>مصراتة</td>
+                <td>مركز مبيعات زاوية المحجوب</td>
+                <td>الطريق الساحلي بعد مدرسة ابوبكر الصديق</td>
+                <td>08:00 صباحاً - 02:00 ظهراً</td>
+            </tr>
+            <tr data-city="مصراتة" data-keywords="مطار">
+                <td>مصراتة</td>
+                <td>نقطة بيع مطار مصراتة</td>
+                <td>مطار مصراتة</td>
+                <td>08:00 صباحاً - 02:00 ظهراً</td>
+            </tr>
+            <tr data-city="سرت" data-keywords="مصرف تجارة تنمية">
+                <td>سرت</td>
+                <td>مركز مبيعات سرت</td>
+                <td>خلف مصرف التجارة والتنمية</td>
+                <td>08:00 صباحاً - 02:00 ظهراً</td>
+            </tr>
+            <tr data-city="الجفرة" data-keywords="جزيرة دوران هون">
+                <td>الجفرة</td>
+                <td>مركز مبيعات الجفرة</td>
+                <td>بجانب جزيرة دوران هون</td>
+                <td>08:00 صباحاً - 02:00 ظهراً</td>
+            </tr>
+            <tr data-city="الخمس" data-keywords="مدخل شرقي مسلاتة الخميس">
+                <td>الخمس</td>
+                <td>مركز مبيعات الخمس</td>
+                <td>المدخل الشرقي للمدينة</td>
+                <td>08:00 صباحاً - 07:00 مساءً</td>
+            </tr>
+            <tr data-city="زليتن" data-keywords="إشارة ضوئية كلية اقتصاد">
+                <td>زليتن</td>
+                <td>مركز مبيعات زليتن</td>
+                <td>الإشارة الضوئية لكلية الإقتصاد</td>
+                <td>08:00 صباحاً - 02:00 ظهراً</td>
+            </tr>
+            <tr data-city="بنغازي" data-keywords="دعوة إسلامية دقادوستا">
+                <td>بنغازي</td>
+                <td>مركز مبيعات الدعوة الإسلامية</td>
+                <td>الدقادوستا - داخل المبنى الإداري</td>
+                <td>08:00 صباحاً - 03:00 ظهراً</td>
+            </tr>
+            <tr data-city="بنغازي" data-keywords="شارع وكالات مصرف تجارة تنمية">
+                <td>بنغازي</td>
+                <td>مركز مبيعات شارع الوكالات</td>
+                <td>شارع الوكالات بجوار مصرف التجارة والتنمية</td>
+                <td>08:00 صباحاً - 03:00 ظهراً</td>
+            </tr>
+            <tr data-city="بنغازي" data-keywords="طريق طرابلس كوبري حديد رحبة">
+                <td>بنغازي</td>
+                <td>مركز مبيعات طريق طرابلس</td>
+                <td>الرحبة عند كوبري طرابلس (كوبري الحديد سابقاً)</td>
+                <td>08:00 صباحاً - 03:00 ظهراً</td>
+            </tr>
+            <tr data-city="بنغازي" data-keywords="حي سلام كobري جديد شيل بوكر">
+                <td>بنغازي</td>
+                <td>مركز مبيعات حي السلام</td>
+                <td>حي السلام بعد الكوبري الجديد و قبل شيل بوكر</td>
+                <td>08:00 صباحاً - 03:00 ظهراً</td>
+            </tr>
+            <tr data-city="المرج" data-keywords="منطقة أ حي 500">
+                <td>المرج</td>
+                <td>مركز مبيعات المرج</td>
+                <td>منطقة (أ) مقابل حي  500</td>
+                <td>08:00 صباحاً - 03:00 ظهراً</td>
+            </tr>
+            <tr data-city="طبرق" data-keywords="شارع عمر مختار فينيسيا مصحة">
+                <td>طبرق</td>
+                <td>مركز مبيعات طبرق</td>
+                <td>شارع عمر المختار ( فينيسيا ) بجوار مصحة فينيسيا</td>
+                <td>08:00 صباحاً - 03:00 ظهراً</td>
+            </tr>
+            <tr data-city="البيضاء" data-keywords="مقسم فندق بنتا بوليس">
+                <td>البيضاء</td>
+                <td>مركز مبيعات البيضاء</td>
+                <td>عند المقسم بجانب فندق بنتا بوليس</td>
+                <td>08:00 صباحاً - 03:00 ظهراً</td>
+            </tr>
+            <tr data-city="درنة" data-keywords="حي مغار زاوية بن عيسى">
+                <td>درنة</td>
+                <td>مركز مبيعات درنة</td>
+                <td>درنة حي المغار إمتداد شارع زاوية بن عيسى</td>
+                <td>08:00 صباحاً - 03:00 ظهراً</td>
+            </tr>
+            <tr data-city="إجدابيا" data-keywords="طريق دائري مدار أمال أفريقيا">
+                <td>إجدابيا</td>
+                <td>مركز مبيعات إجدابيا</td>
+                <td>مدخل إجدابيا الطريق الدائري بجوار شركة المدار و فندق أمال أفريقia</td>
+                <td>08:00 صباحاً - 03:00 ظهراً</td>
+            </tr>
+            <tr data-city="سبها" data-keywords="مصرف تجاري وطني">
+                <td>سبها</td>
+                <td>مركز مبيعات سبها</td>
+                <td>خلف المصرف التجاري الوطني</td>
+                <td>09:00 صباحاً - 03:00 ظهراً</td>
+            </tr>
+            <tr data-city="الجديدة" data-keywords="جزيرة دوران عبدالكافي">
+                <td>الجديدة</td>
+                <td>مركز مبيعات الجديد</td>
+                <td>بالقرب من جزيرة دوران حي عبدالكافي</td>
+                <td>09:00 صباحاً - 03:00 ظهراً</td>
+            </tr>
+            <tr data-city="براك الشاطئ" data-keywords="مصرف صحاري">
+                <td>براك الشاطئ</td>
+                <td>مركز مبيعات براك الشاطئ</td>
+                <td>بالقرب من مصرف الصحاري فرع براك</td>
+                <td>09:00 صباحاً - 03:00 ظهراً</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="signature">
+        <p>Made by Ahmed Zendah</p>
+    </div>
+
+    <div id="noResults" class="no-results">
+        <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 15px;"></i>
+        <h4>لا توجد نتائج مطابقة للبحث</h4>
+        <p>حاول استخدام كلمات بحث مختلفة أو اختر مدينة أخرى</p>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // حساب عدد المراكز لكل مدينة عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', function() {
+        updateCityCounts();
+        filterAndSearchCenters();
+        
+        // تحقق من وضع التخزين المحلي للوضع الليلي
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('themeIcon').className = 'fas fa-sun';
+        }
+        
+        // إضافة مستمعي الأحداث
+        document.getElementById('citySelect').addEventListener('change', filterAndSearchCenters);
+        document.getElementById('searchInput').addEventListener('input', filterAndSearchCenters);
+        document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
+    });
+
+    function updateCityCounts() {
+        const cities = {};
+        const rows = document.querySelectorAll('#salesCenters tbody tr');
+        
+        // حساب عدد المراكز لكل مدينة
+        rows.forEach(row => {
+            const city = row.getAttribute('data-city');
+            cities[city] = (cities[city] || 0) + 1;
+        });
+        
+        // تحديث العدد لكل مدينة في القائمة المنسدلة
+        document.getElementById('totalCount').textContent = rows.length;
+        
+        Object.keys(cities).forEach(city => {
+            const option = document.querySelector(`#citySelect option[value="${city}"]`);
+            if (option) {
+                option.querySelector('.city-count').textContent = cities[city];
+            }
+        });
+    }
+
+    function filterAndSearchCenters() {
+        const citySelect = document.getElementById('citySelect');
+        const selectedCity = citySelect.value;
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        const rows = document.querySelectorAll('#salesCenters tbody tr');
+        let visibleRows = 0;
+        
+        rows.forEach(row => {
+            const city = row.getAttribute('data-city');
+            const centerName = row.cells[1].textContent.toLowerCase();
+            const address = row.cells[2].textContent.toLowerCase();
+            const keywords = row.getAttribute('data-keywords') || '';
+            
+            const matchesCity = selectedCity === 'all' || city === selectedCity;
+            const matchesSearch = searchTerm === '' || 
+                city.toLowerCase().includes(searchTerm) || 
+                centerName.includes(searchTerm) || 
+                address.includes(searchTerm) ||
+                keywords.toLowerCase().includes(searchTerm);
+            
+            if (matchesCity && matchesSearch) {
+                row.style.display = '';
+                visibleRows++;
+            } else {
+                row.style.display = 'none';
+            }
+        });
+        
+        // إظهار أو إخفاء رسالة عدم وجود نتائج
+        const noResults = document.getElementById('noResults');
+        if (visibleRows === 0) {
+            noResults.style.display = 'block';
+            document.querySelector('#salesCenters thead').style.display = 'none';
+        } else {
+            noResults.style.display = 'none';
+            document.querySelector('#salesCenters thead').style.display = '';
+        }
+    }
+    
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        const themeIcon = document.getElementById('themeIcon');
+        
+        if (document.body.classList.contains('dark-mode')) {
+            themeIcon.className = 'fas fa-sun';
+            localStorage.setItem('darkMode', 'enabled');
+        } else {
+            themeIcon.className = 'fas fa-moon';
+            localStorage.removeItem('darkMode');
+        }
+    }
+</script>
+
+</body>
+</html>
